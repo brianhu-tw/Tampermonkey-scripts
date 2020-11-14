@@ -17,7 +17,7 @@
     'use strict';
     $(document).ready(function () {
 
-        let style = '<style>div.preserve_btn {height: 36px;display: table-cell;vertical-align: middle;font-size: 14px;cursor: pointer;}\ndiv.preserve_btn:hover {color: #1E5EDE;text-decoration: underline;}</style>'
+        let style = '<style>div.preserve_btn {height: 36px;display: table-cell;vertical-align: middle;font-size: 14px;color: #1E5EDE;cursor: pointer;}\ndiv.preserve_btn:hover {color: #578AEF;text-decoration: underline;}</style>'
         $('head').append(style);
 
         var calendar = {};
