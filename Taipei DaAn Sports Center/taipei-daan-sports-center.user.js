@@ -17,7 +17,7 @@
     'use strict';
     $(document).ready(function () {
 
-        let style = '<style>div.preserve_btn {height: 36px;display: table-cell;vertical-align: middle;font-size: 14px;color: #1E5EDE;cursor: pointer;}\ndiv.preserve_btn:hover {color: #578AEF;text-decoration: underline;}</style>'
+        let style = '<style>table {border-style: solid; border-color: rgb(200, 200, 200);}\ndiv.preserve_btn {height: 36px;display: table-cell;vertical-align: middle;font-size: 14px;color: #1E5EDE;cursor: pointer;}\ndiv.preserve_btn:hover {color: #578AEF;text-decoration: underline;}</style>'
         $('head').append(style);
 
         var calendar = {};
@@ -46,7 +46,6 @@
         $('div#ContentPlaceHolder1_Panel_Step2 td.tWord tr').each(function (index) {
             // handle the case if table column count is less than place count
             let column_count = $(this).children('td').not(':first-child').length;
-            console.log('place_list: ' + place_list.length + ', column_count: ' + column_count);
             while (place_list.length != column_count) {
                 if (place_list.length > column_count) {
                     $(this).append($(this).children('td:last-child').prop('outerHTML'));
@@ -56,12 +55,13 @@
                 }
                 column_count = $(this).children('td').not(':first-child').length;
             }
+            $(this).css('height', '36px');
 
             // first row
             if ($(this).is(':first-child')) {
-                $(this).children('td').not(':first-child').each(function (index) {
-                    $(this).text(place_list[index]);
-                    $(this).css('border-left', 'none')
+                $(this).children('td').each(function (index) {
+                    $(this).text(place_list[index - 1]);
+                    $(this).css('border', 'none');
                 });
             }
             // the others row
@@ -71,15 +71,20 @@
                     $(this).remove();
                 }
                 else {
-                    $(this).css('height', '36px');
                     let time = $(this).children('td').eq(0).text();
-                    $(this).children('td').not(':first-child').each(function (index) {
-                        let place = place_list[index];
-                        $(this).empty().append(calendar[time][place]['button'].html());
-                        $(this).css('border-left', 'none')
+                    $(this).children('td').each(function (index) {
+                        // except the first child
+                        if ($(this).is(':not(:first-child)')) {
+                            let place = place_list[index - 1];
+                            $(this).empty().append(calendar[time][place]['button'].html());
+                        }
+                        $(this).css({ 'border-style': 'solid', 'border-width': '1px 0px 0px 0px', 'border-color': 'rgb(200, 200, 200)' });
                     });
                 }
             }
         });
+
+        // remove ugly footer
+        $('table').has('div#footer').remove()
     });
 })();
