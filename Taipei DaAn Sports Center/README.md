@@ -1,6 +1,7 @@
 ## **Description**
 
-It will change the table layout of Taipei DaAn Sports Center preservation page.
+The original table in preservation page of Taipei DaAn Sports Center sucks.
+This script will change the layout and make it more human readable.
 
 ## **Before**
 
